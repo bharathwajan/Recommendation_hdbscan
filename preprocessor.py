@@ -6,13 +6,14 @@ import umap
 import tensorflow_hub as hub
 
 class preprocess():
-    def __init__(self):
+    def __init__(self,dataset):
         self.exp='[\u0627-\u064aA-Za-z]+' #re to get arabic and english , i had eliminated numbers and special characters because they dont have much influence 
         self.module_url = "https://tfhub.dev/google/universal-sentence-encoder/4" # this is already a pretrained model ,so need of saving this model with our data
         self.model = hub.load(self.module_url)
+        self.dataset=dataset
         
-    def process(self,path):
-        self.dataset=pd.read_csv(path,,on_bad_lines='skip')
+    def process(self):
+        # self.dataset=pd.read_csv(path,,on_bad_lines='skip')
         self.dataset=self.dataset[["title",'category_id','contents',"agency_id",'tweet_text']]
         self.dataset.fillna("",inplace=True)
         
